@@ -18,3 +18,13 @@ gen
 *.project
 .DS_Store
 target/
+
+local.properties
+
+# Gradle #
+.gradle/
+!+.gradle
+!/gradle/
+build/
+
+maven-deploy/*

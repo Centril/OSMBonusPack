@@ -1,0 +1,58 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'com.android.tools.build:gradle:0.7.+'
+	}
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+/**
+ * Task to generate a gradle wrapper.
+ */
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.9'
+}
+
+apply plugin: 'android-library'
+apply plugin: 'maven'
+
+android {
+	compileSdkVersion 19
+	buildToolsVersion '19.0.1'
+
+	sourceSets {
+		main {
+			manifest.srcFile 'AndroidManifest.xml'
+			java.srcDirs = ['src']
+		}
+	}
+}
+
+dependencies {
+	compile 'org.osmdroid:osmdroid-android:4.0'
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: "file://" + file('maven-deploy'))
+		pom.version = '4.0.0-SNAPSHOT'
+		pom.groupId = 'org.osmdroid'
+		pom.artifactId = 'bonuspack'
+		pom.project {
+            licenses {
+				license {
+					name 'The Apache Software License, Version 2.0'
+					url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+					distribution 'release'
+				}
+			}
+		}
+    }
+}
